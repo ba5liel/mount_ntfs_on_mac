@@ -109,13 +109,13 @@ mkdir -p /Volumes/MyDrive
 
 # Unmount the drive if it's mounted
 echo -e "\n${BLUE}Unmounting drive if mounted...${NC}"
-diskutil unmount force "/Volumes/MyDrive" &>/dev/null
-diskutil unmount force "$identifier" &>/dev/null
-[ ! -z "$volume_name" ] && diskutil unmount force "/Volumes/$volume_name" &>/dev/null
+diskutil unmount "/Volumes/MyDrive" &>/dev/null
+diskutil unmount "$identifier" &>/dev/null
+[ ! -z "$volume_name" ] && diskutil unmount "/Volumes/$volume_name" &>/dev/null
 
 # Mount the drive
 echo -e "${BLUE}Mounting drive: ${GREEN}$selected_drive${NC}"
-if ntfs-3g "$identifier" /Volumes/MyDrive -o local -o allow_other; then
+if ntfs-3g "$identifier" /Volumes/MyDrive -o local -o allow_other -o auto_xattr; then
     echo -e "\n${GREEN}Success!${NC} Drive mounted at ${BLUE}/Volumes/MyDrive${NC}"
     echo -e "You can now read and write to this drive."
 else
